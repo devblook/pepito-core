@@ -1,0 +1,5 @@
+name: pepito-core
+version: '${version}'
+main: team.devblook.pepitocore.PepitoCorePlugin
+api-version: '${apiVersion}'
+authors: [JonaKULASO, Sintaxis]
