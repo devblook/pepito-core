@@ -3,6 +3,7 @@ package team.devblook.pepitocore.plugin.module.event.type;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -32,6 +33,18 @@ public class PoisonGameEvent implements GameEvent {
     @Override
     public Component name() {
         return Component.text("Poison Game");
+    }
+
+    @Override
+    public Component description() {
+        return Component.text()
+                .append(Component.text("¡Bienvenido al juego del veneno!", TextColor.color(0x526AA9)))
+                .append(Component.text("Tendrás veneno por" + duration() + " minutos", TextColor.color(0xE4FFE5)))
+                .appendNewline()
+                .append(Component.text("Ah... Y no podrán tomar leche para curarse.", TextColor.color(0xE4FFE5)))
+                .appendNewline()
+                .append(Component.text("¡Buena suerte!", TextColor.color(0x35BD30)))
+                .build();
     }
 
     @Override
