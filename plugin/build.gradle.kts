@@ -31,7 +31,7 @@ dependencies {
 }
 
 tasks {
-    build {
+    assemble {
         dependsOn(reobfJar)
     }
 

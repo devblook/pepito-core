@@ -73,6 +73,7 @@ public class ModuleCommand implements CommandClass {
             return;
         }
 
+
         module.disable();
         sender.sendMessage("Module '" + name + "' disabled!");
     }

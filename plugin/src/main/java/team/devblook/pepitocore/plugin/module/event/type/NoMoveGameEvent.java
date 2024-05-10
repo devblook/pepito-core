@@ -74,6 +74,7 @@ public class NoMoveGameEvent implements GameEvent {
 
                             Player player = event.getPlayer();
                             // do stuff with gay player
+                            player.sendMessage("You loose!");
                         }
                 ),
                 PlayerQuitEvent.class,
@@ -92,8 +93,6 @@ public class NoMoveGameEvent implements GameEvent {
                                     Duration.of(1, ChronoUnit.HOURS),
                                     "Homosexual Judgement"
                             );
-
-                            player.kick(Component.text("Homosexual"));
                         }
                 )
         );
