@@ -42,6 +42,8 @@ public class EventPool implements Runnable {
             player.sendMessage(current.description());
         }
 
+        current.begin();
+
         for (Map.Entry<Class<? extends Event>, GameEventExecutor<? extends Event>> entry : current.events().entrySet()) {
             Bukkit.getPluginManager().registerEvent(
                     entry.getKey(),
@@ -52,8 +54,6 @@ public class EventPool implements Runnable {
             );
         }
 
-        current.begin();
-
         task = Bukkit.getScheduler().scheduleSyncDelayedTask(
                 plugin,
                 () -> {
@@ -62,7 +62,7 @@ public class EventPool implements Runnable {
 
                     current = null;
 
-                    int interval = 1;
+                    int interval = 1; // get this from config file
                     if (interval < 1) {
                         run();
                         return;

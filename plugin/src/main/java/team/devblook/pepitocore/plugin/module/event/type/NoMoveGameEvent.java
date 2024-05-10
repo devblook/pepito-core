@@ -32,6 +32,11 @@ public class NoMoveGameEvent implements GameEvent {
     }
 
     @Override
+    public Component description() {
+        return Component.text("Descripción Perrona");
+    }
+
+    @Override
     public Title title() {
         return Title.title(
                 Component.text("No Move"),
@@ -66,7 +71,6 @@ public class NoMoveGameEvent implements GameEvent {
                             }
 
                             isSomeoneGay = true;
-                            System.out.println("no more gays");
 
                             Player player = event.getPlayer();
                             // do stuff with gay player
