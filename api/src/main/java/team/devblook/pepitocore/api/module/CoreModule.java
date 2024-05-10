@@ -15,5 +15,7 @@ public interface CoreModule extends Identity {
 
     void enable();
 
-    void disable();
+    default void disable() {
+
+    }
 }
