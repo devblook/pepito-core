@@ -19,7 +19,7 @@ public class PepitoCoreBindingModule extends AbstractModule {
 
     private final Plugin plugin;
 
-    public PepitoCoreBindingModule(Plugin plugin) {
+    public PepitoCoreBindingModule(PepitoCorePlugin plugin) {
         this.plugin = plugin;
     }
 

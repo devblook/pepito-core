@@ -1,22 +1,42 @@
 package team.devblook.pepitocore.plugin.command;
 
+import com.google.inject.Inject;
 import com.google.inject.Injector;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.bukkit.annotation.Sender;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import team.devblook.pepitocore.api.module.CoreModule;
 import team.devblook.pepitocore.api.registry.TRegistry;
 import team.devblook.pepitocore.plugin.module.Modules;
 
-import javax.inject.Inject;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.function.Function;
 
 @Command(names = "module")
 public class ModuleCommand implements CommandClass {
 
-    private @Inject Injector injector;
-    private @Inject TRegistry<String, CoreModule> modules;
+    private static final Method SYNC;
+
+    static {
+        try {
+            SYNC = Bukkit.getServer().getClass().getDeclaredMethod("syncCommands");
+            SYNC.setAccessible(true);
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException("Failed to initialize SyncCommands method from Bukkit#getServer().", e);
+        }
+    }
+
+    private final Injector injector;
+    private final TRegistry<String, CoreModule> modules;
+
+    @Inject
+    public ModuleCommand(Injector injector, TRegistry<String, CoreModule> modules) {
+        this.injector = injector;
+        this.modules = modules;
+    }
 
     @Command(names = "enable")
     public void enable(@Sender CommandSender sender, String name) {
@@ -34,6 +54,12 @@ public class ModuleCommand implements CommandClass {
 
         CoreModule module = function.apply(injector);
         module.enable();
+
+        try {
+            SYNC.invoke(Bukkit.getServer());
+        } catch (InvocationTargetException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
 
         modules.insert(lowered, module);
         sender.sendMessage("Module '" + name + "' enabled!");

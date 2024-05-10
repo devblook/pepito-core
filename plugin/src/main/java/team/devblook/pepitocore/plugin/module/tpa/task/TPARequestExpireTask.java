@@ -1,13 +1,13 @@
 package team.devblook.pepitocore.plugin.module.tpa.task;
 
 import com.google.common.collect.Multimap;
+import com.google.inject.Inject;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import team.devblook.pepitocore.plugin.module.tpa.model.TPARequest;
 
-import javax.inject.Inject;
 import java.util.Collection;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
