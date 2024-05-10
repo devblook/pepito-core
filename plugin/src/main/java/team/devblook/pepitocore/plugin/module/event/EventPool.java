@@ -8,6 +8,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.Plugin;
 import team.devblook.pepitocore.plugin.module.event.model.GameEvent;
+import team.devblook.pepitocore.plugin.module.event.type.NoMoveGameEvent;
 import team.devblook.pepitocore.plugin.module.event.type.PoisonGameEvent;
 
 import java.util.List;
@@ -18,7 +19,8 @@ public class EventPool implements Runnable {
 
     private static final Random RANDOM = new Random();
     private static final List<GameEvent> EVENTS = List.of(
-            new PoisonGameEvent()
+            new PoisonGameEvent(),
+            new NoMoveGameEvent()
     );
 
     private @Inject Plugin plugin;
@@ -59,7 +61,7 @@ public class EventPool implements Runnable {
 
                     current = null;
 
-                    int interval = 3 * 20 * 60;
+                    int interval = 1;
                     if (interval < 1) {
                         run();
                         return;
