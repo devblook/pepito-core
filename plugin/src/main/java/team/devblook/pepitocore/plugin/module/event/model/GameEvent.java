@@ -17,6 +17,8 @@ public interface GameEvent extends Identity, Listener {
 
     Component name();
 
+    Component description();
+
     Title title();
 
     Sound sound();

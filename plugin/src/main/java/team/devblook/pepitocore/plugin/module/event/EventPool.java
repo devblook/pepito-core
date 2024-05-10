@@ -37,6 +37,7 @@ public class EventPool implements Runnable {
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.showTitle(current.title());
             player.playSound(current.sound());
+            player.sendMessage(current.description());
         }
 
         for (Map.Entry<Class<? extends Event>, GameEventExecutor<? extends Event>> entry : current.events().entrySet()) {
