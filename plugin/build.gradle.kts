@@ -16,12 +16,18 @@ java {
 
 repositories {
     mavenCentral()
+    maven("https://repo.unnamed.team/repository/unnamed-public/")
 }
 
 dependencies {
     paperweight.paperDevBundle("1.20.4-R0.1-SNAPSHOT")
 
     implementation(project(":pepito-core-api"))
+
+    // https://mvnrepository.com/artifact/com.google.inject/guice
+    implementation("com.google.inject:guice:7.0.0")
+
+    implementation("me.fixeddev:commandflow-bukkit:0.6.0")
 }
 
 tasks {

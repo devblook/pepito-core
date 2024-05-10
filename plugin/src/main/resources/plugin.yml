@@ -1,5 +1,5 @@
 name: pepito-core
 version: '${version}'
-main: team.devblook.pepitocore.PepitoCorePlugin
+main: team.devblook.pepitocore.plugin.PepitoCorePlugin
 api-version: '${apiVersion}'
 authors: [JonaKULASO, Sintaxis]
