@@ -16,12 +16,10 @@ import java.nio.file.Files;
 
 public class BukkitConfiguration {
 
-    private MiniMessage miniMessage;
     private final File file;
     private FileConfiguration config;
 
     public BukkitConfiguration(final File folder, final String fileName) {
-        this.miniMessage = MiniMessage.miniMessage();
         if (!folder.exists() && !folder.mkdirs()) {
             throw new IllegalStateException("Plugin folder" + folder.getName() + "cannot be created");
         }
@@ -67,7 +65,7 @@ public class BukkitConfiguration {
      * @return Adventure Component with text styles and color from minimessage deserialization
      */
     public Component getComponent(final @NotNull String path) {
-        return miniMessage.deserialize(config.getString(path, path));
+        return MiniMessage.miniMessage().deserialize(config.getString(path, path));
     }
 
     /**
