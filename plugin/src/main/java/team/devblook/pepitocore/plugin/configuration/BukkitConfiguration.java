@@ -21,7 +21,7 @@ public class BukkitConfiguration {
 
     public BukkitConfiguration(final File folder, final String fileName) {
         if (!folder.exists() && !folder.mkdirs()) {
-            throw new IllegalStateException("Plugin folder" + folder.getName() + "cannot be created");
+            throw new IllegalStateException("Plugin folder " + folder.getName() + " cannot be created");
         }
 
         this.file = new File(folder, fileName + ".yml");
@@ -77,6 +77,4 @@ public class BukkitConfiguration {
     public String getLegacyString(final @NotNull String path) {
         return LegacyComponentSerializer.legacyAmpersand().serialize(getComponent(path));
     }
-
-
 }

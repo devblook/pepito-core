@@ -12,7 +12,7 @@ import org.bukkit.plugin.Plugin;
 import team.devblook.pepitocore.api.module.CoreModule;
 import team.devblook.pepitocore.api.registry.LocalTRegistry;
 import team.devblook.pepitocore.api.registry.TRegistry;
-import team.devblook.pepitocore.plugin.configuration.ConfigurationModule;
+import team.devblook.pepitocore.plugin.configuration.BukkitConfiguration;
 
 import java.util.HashMap;
 
@@ -41,6 +41,6 @@ public class PepitoCoreBindingModule extends AbstractModule {
         bind(new TypeLiteral<TRegistry<String, CoreModule>>() {
         }).toInstance(new LocalTRegistry<>(new HashMap<>()));
 
-        this.install(new ConfigurationModule());
+        bind(BukkitConfiguration.class).toInstance(new BukkitConfiguration(plugin, "config.yml"));
     }
 }
