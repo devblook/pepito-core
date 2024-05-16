@@ -20,7 +20,6 @@ public interface Modules {
             "events", injector -> injector.getInstance(EventModule.class),
             "sleep", injector -> injector.getInstance(SleepModule.class),
             "broadcast", injector -> injector.getInstance(BroadcastModule.class),
-            "sleep", injector -> injector.getInstance(SleepModule.class),
             "warps", injector -> injector.getInstance(WarpsModule.class),
             "damage-indicator", injector -> injector.getInstance(IndicatorModule.class)
     );
