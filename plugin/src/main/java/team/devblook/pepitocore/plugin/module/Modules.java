@@ -21,6 +21,7 @@ public interface Modules {
             "sleep", injector -> injector.getInstance(SleepModule.class),
             "broadcast", injector -> injector.getInstance(BroadcastModule.class),
             "warps", injector -> injector.getInstance(WarpsModule.class),
-            "damage-indicator", injector -> injector.getInstance(IndicatorModule.class)
+            "damage-indicator", injector -> injector.getInstance(IndicatorModule.class),
+            "chat", injector -> injector.getInstance(IndicatorModule.class)
     );
 }
