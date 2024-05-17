@@ -20,7 +20,7 @@ public class WarpManager {
         Warp warp = new Warp(name, player.getUniqueId().toString(), BlockPos.of(player.getLocation()));
         if (owning.contains(warp)) {
             player.sendMessage(Component.text()
-                    .append(Component.text("El Warp '" + name + "' ya existe", TextColor.fromHexString("#E7783C")))
+                    .append(Component.text("El warp '" + name + "' ya existe.", TextColor.fromHexString("#E7783C")))
             );
             return;
         }
@@ -36,13 +36,13 @@ public class WarpManager {
 
         if (!owning.removeIf(warp -> warp.id().equals(name) && warp.owner().equals(player.getUniqueId().toString()))) {
             player.sendMessage(Component.text()
-                    .append(Component.text("El Warp '" + name + "' no existe", TextColor.fromHexString("#E7783C")))
+                    .append(Component.text("El warp '" + name + "' no existe", TextColor.fromHexString("#E7783C")))
             );
             return;
         }
 
         player.sendMessage(Component.text()
-                .append(Component.text("El warp '" + name + "' fue creado eliminado.", TextColor.fromHexString("#35bd30")))
+                .append(Component.text("El warp '" + name + "' fue eliminado.", TextColor.fromHexString("#35bd30")))
         );
     }
 
@@ -53,7 +53,7 @@ public class WarpManager {
     public void teleport(Player player, String name) {
         Warp warp = warps.get(player.getUniqueId())
                 .stream()
-                .filter(search -> search.id().equals(name) && search.owner().equals(player.getUniqueId().toString()))
+                .filter(search -> search != null && search.id().equals(name) && search.owner().equals(player.getUniqueId().toString()))
                 .findFirst()
                 .orElse(null);
 
@@ -66,7 +66,7 @@ public class WarpManager {
 
         player.teleport(warp.pos().toLocation());
         player.sendMessage(Component.text()
-                .append(Component.text("Enviandote al warp '" + name + "'", TextColor.fromHexString("#35bd30")))
+                .append(Component.text("Enviándote al warp '" + name + "'", TextColor.fromHexString("#35bd30")))
         );
     }
 }

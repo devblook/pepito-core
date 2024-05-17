@@ -65,6 +65,7 @@ public class TJsonDatastore<T extends Identity> implements TDatastore<T> {
             if (!realFolder.exists() && !realFolder.mkdirs()) {
                 return;
             }
+
             File file = new File(realFolder, value.id() + EXTENSION);
             try {
                 if (!file.exists() && !file.createNewFile()) {
@@ -83,7 +84,7 @@ public class TJsonDatastore<T extends Identity> implements TDatastore<T> {
     @Override
     public CompletableFuture<Collection<T>> values(String owner) {
         return CompletableFuture.supplyAsync(() -> {
-            File[] files = folder.listFiles();
+            File[] files = new File(folder, owner).listFiles();
             if (files == null || files.length == 0) {
                 return Collections.emptyList();
             }
