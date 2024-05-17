@@ -7,7 +7,7 @@ import me.fixeddev.commandflow.annotated.AnnotatedCommandTreeBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.Plugin;
-import team.devblook.pepitocore.api.datastore.TJsonDatastore;
+import team.devblook.pepitocore.api.datastore.TDatastore;
 import team.devblook.pepitocore.api.module.CoreModule;
 import team.devblook.pepitocore.plugin.module.warps.command.WarpCommand;
 import team.devblook.pepitocore.plugin.module.warps.listener.UserWarpListener;
@@ -24,7 +24,7 @@ public class WarpsModule implements CoreModule {
     private @Inject Plugin plugin;
     private @Inject WarpCommand command;
 
-    private @Inject TJsonDatastore<Warp> datastore;
+    private @Inject TDatastore<Warp> datastore;
     private @Inject Multimap<UUID, Warp> warps;
 
     @Override
