@@ -50,14 +50,18 @@ public class PoisonGameEvent implements GameEvent {
     @Override
     public Title title() {
         return Title.title(
-                Component.text("Poison Game"),
-                Component.text("Sexo")
+                Component.text("ᴛᴏxɪᴄᴏs", TextColor.color(0x43AE33)),
+                Component.text("Tu amiga la toxica te enveneno por " + duration() + " minutos", TextColor.color(0xE4FFE5))
         );
     }
 
     @Override
     public Sound sound() {
-        return Sound.sound(Key.key("music_disc.13"), Sound.Source.AMBIENT, 3f, 1f);
+        return Sound.sound(
+                Key.key("minecraft", "entity.villager.yes"),
+                Sound.Source.PLAYER,
+                1.0f,
+                1.0f);
     }
 
     @Override

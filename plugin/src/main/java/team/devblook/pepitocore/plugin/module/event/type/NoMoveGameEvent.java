@@ -4,6 +4,7 @@ import io.papermc.paper.ban.BanListType;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -33,20 +34,32 @@ public class NoMoveGameEvent implements GameEvent {
 
     @Override
     public Component description() {
-        return Component.text("Descripción Perrona");
+        return Component.text()
+                .append(Component.text("¡EL QUE SE MUEVA ES GAY!", TextColor.color(0xA9009D)))
+                .appendNewline()
+                .append(Component.text("No te muevas, porque si no serás muy gay", TextColor.color(0xE4FFE5)))
+                .appendNewline()
+                .append(Component.text("Y el que se salga será baneado", TextColor.color(0xE4FFE5)))
+                .appendNewline()
+                .append(Component.text("¡No seas gay!", TextColor.color(0x35BD30)))
+                .build();
     }
 
     @Override
     public Title title() {
         return Title.title(
-                Component.text("No Move"),
-                Component.text("Si te mueves eres bien GAY")
+                Component.text("¡EL QUE SE MUEVA ES GAY!", TextColor.color(0xA9009D)),
+                Component.text("Si te mueves eres bien GAY :D")
         );
     }
 
     @Override
     public Sound sound() {
-        return Sound.sound(Key.key("music_disc.13"), Sound.Source.AMBIENT, 3f, 1f);
+        return Sound.sound(
+                Key.key("minecraft", "entity.villager.no"),
+                Sound.Source.PLAYER,
+                1.0f,
+                1.0f);
     }
 
     @Override
@@ -74,7 +87,14 @@ public class NoMoveGameEvent implements GameEvent {
 
                             Player player = event.getPlayer();
                             // do stuff with gay player
-                            player.sendMessage("You loose!");
+                            player.sendMessage(Component.text("Sos re gay.", TextColor.color(0xFF0000)));
+
+
+                            Bukkit.getOnlinePlayers().forEach(onlinePlayer -> {
+                                if (onlinePlayer != player) {
+                                    onlinePlayer.sendMessage(Component.text(player.getName() + " es re gay.", TextColor.color(0xFF0000)));
+                                }
+                            });
                         }
                 ),
                 PlayerQuitEvent.class,
