@@ -97,6 +97,8 @@ public class IncreasedMobDamageEvent implements GameEvent {
 
     @Override
     public void begin() {
+        bossBar.progress(1);
+
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.addPotionEffect(slowness);
         }
