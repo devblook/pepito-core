@@ -27,7 +27,7 @@ public class UserWarpListener implements Listener {
                 return;
             }
 
-            this.warps.putAll(uuid, owning);
+            owning.forEach(warp -> this.warps.put(uuid, warp));
         });
     }
 

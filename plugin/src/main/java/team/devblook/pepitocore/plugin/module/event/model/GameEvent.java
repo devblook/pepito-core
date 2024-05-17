@@ -1,5 +1,6 @@
 package team.devblook.pepitocore.plugin.module.event.model;
 
+import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
@@ -22,6 +23,8 @@ public interface GameEvent extends Identity, Listener {
     Title title();
 
     Sound sound();
+
+    BossBar bossBar();
 
     int duration();
 

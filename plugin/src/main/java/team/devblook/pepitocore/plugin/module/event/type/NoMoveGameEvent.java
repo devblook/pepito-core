@@ -1,6 +1,7 @@
 package team.devblook.pepitocore.plugin.module.event.type;
 
 import io.papermc.paper.ban.BanListType;
+import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.text.Component;
@@ -20,6 +21,7 @@ import java.util.Map;
 
 public class NoMoveGameEvent implements GameEvent {
 
+    private final BossBar bossBar = BossBar.bossBar(this::name, 1, BossBar.Color.PINK, BossBar.Overlay.PROGRESS);
     private boolean isSomeoneGay;
 
     @Override
@@ -29,7 +31,7 @@ public class NoMoveGameEvent implements GameEvent {
 
     @Override
     public Component name() {
-        return Component.text("No Move");
+        return Component.text("ᴇʟ ǫᴜᴇ sᴇ ᴍᴜᴇᴠᴀ ᴇs ɢᴀʏ", TextColor.color(0xA9009D));
     }
 
     @Override
@@ -38,6 +40,7 @@ public class NoMoveGameEvent implements GameEvent {
                 .appendNewline()
                 .appendNewline()
                 .append(Component.text("¡EL QUE SE MUEVA ES GAY!", TextColor.color(0xA9009D)))
+                .appendNewline()
                 .appendNewline()
                 .append(Component.text("    No te muevas, porque si no serás muy gay", TextColor.color(0xE4FFE5)))
                 .appendNewline()
@@ -53,7 +56,12 @@ public class NoMoveGameEvent implements GameEvent {
     public Title title() {
         return Title.title(
                 Component.text("¡EL QUE SE MUEVA ES GAY!", TextColor.color(0xA9009D)),
-                Component.text("Si te mueves eres bien GAY :D")
+                Component.text("Si te mueves eres bien GAY :D"),
+                Title.Times.times(
+                        Duration.ofSeconds(2),
+                        Duration.ofSeconds(5),
+                        Duration.ofSeconds(2)
+                )
         );
     }
 
@@ -67,13 +75,25 @@ public class NoMoveGameEvent implements GameEvent {
     }
 
     @Override
+    public BossBar bossBar() {
+        return bossBar;
+    }
+
+    @Override
     public int duration() {
         return 1;
     }
 
     @Override
+    public void begin() {
+        this.bossBar.progress(1);
+    }
+
+    @Override
     public void end() {
         isSomeoneGay = false;
+
+        Bukkit.getOnlinePlayers().forEach(player -> player.hideBossBar(bossBar));
     }
 
     @Override

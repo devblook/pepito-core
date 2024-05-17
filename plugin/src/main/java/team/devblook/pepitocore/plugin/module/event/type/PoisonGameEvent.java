@@ -1,5 +1,6 @@
 package team.devblook.pepitocore.plugin.module.event.type;
 
+import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.text.Component;
@@ -15,10 +16,12 @@ import org.bukkit.potion.PotionEffectType;
 import team.devblook.pepitocore.plugin.module.event.GameEventExecutor;
 import team.devblook.pepitocore.plugin.module.event.model.GameEvent;
 
+import java.time.Duration;
 import java.util.Map;
 
 public class PoisonGameEvent implements GameEvent {
 
+    private final BossBar bossBar = BossBar.bossBar(this::name, 1, BossBar.Color.GREEN, BossBar.Overlay.PROGRESS);
     private final PotionEffect poison = new PotionEffect(
             PotionEffectType.POISON,
             duration() * 20 * 60,
@@ -32,7 +35,7 @@ public class PoisonGameEvent implements GameEvent {
 
     @Override
     public Component name() {
-        return Component.text("Poison Game");
+        return Component.text("ᴊᴜᴇɢᴏ ᴅᴇʟ ᴠᴇɴᴇɴᴏ", TextColor.fromHexString("#2d36ac"));
     }
 
     @Override
@@ -40,13 +43,16 @@ public class PoisonGameEvent implements GameEvent {
         return Component.text()
                 .appendNewline()
                 .appendNewline()
-                .append(Component.text("¡Bienvenido al juego del veneno!", TextColor.color(0x526AA9)))
+                .appendNewline()
+                .append(Component.text("¡Bienvenido al juego del veneno!", TextColor.fromHexString("#2d36ac")))
+                .appendNewline()
                 .appendNewline()
                 .append(Component.text("    Tendrás veneno por " + duration() + " minuto(s)", TextColor.color(0xE4FFE5)))
                 .appendNewline()
                 .append(Component.text("    Ah... Y no podrán tomar leche para curarse.", TextColor.color(0xE4FFE5)))
                 .appendNewline()
                 .append(Component.text("    ¡Buena suerte!", TextColor.color(0x35BD30)))
+                .appendNewline()
                 .appendNewline()
                 .appendNewline()
                 .build();
@@ -56,7 +62,12 @@ public class PoisonGameEvent implements GameEvent {
     public Title title() {
         return Title.title(
                 Component.text("ᴛᴏxɪᴄᴏs", TextColor.color(0x43AE33)),
-                Component.text("Tu amiga la toxica te enveneno por " + duration() + " minuto(s)", TextColor.color(0xE4FFE5))
+                Component.text("Tu amiga la toxica te enveneno por " + duration() + " minuto(s)", TextColor.color(0xE4FFE5)),
+                Title.Times.times(
+                        Duration.ofSeconds(2),
+                        Duration.ofSeconds(5),
+                        Duration.ofSeconds(2)
+                )
         );
     }
 
@@ -70,15 +81,26 @@ public class PoisonGameEvent implements GameEvent {
     }
 
     @Override
+    public BossBar bossBar() {
+        return this.bossBar;
+    }
+
+    @Override
     public int duration() {
         return 1;
     }
 
     @Override
     public void begin() {
+        this.bossBar.progress(1);
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.addPotionEffect(poison);
         }
+    }
+
+    @Override
+    public void end() {
+        Bukkit.getOnlinePlayers().forEach(player -> player.hideBossBar(bossBar));
     }
 
     @Override
