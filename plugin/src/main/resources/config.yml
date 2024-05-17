@@ -1,2 +1,10 @@
 events:
   interval: 10 # minutes
+module:
+  active-modules:
+    - "tpa"
+    - "events"
+    - "sleep"
+    - "broadcast"
+    - "warps"
+    - "chat"
