@@ -82,6 +82,11 @@ public class ModuleCommand implements CommandClass {
     public void list(@Sender CommandSender sender) {
         sender.sendMessage("Enabled modules:");
         for (CoreModule module : modules) {
+
+            if (module == null) {
+                continue;
+            }
+
             sender.sendMessage("Module: " + module.id());
         }
     }
