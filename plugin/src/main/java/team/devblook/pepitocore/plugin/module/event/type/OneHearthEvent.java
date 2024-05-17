@@ -7,8 +7,6 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
-import org.bukkit.attribute.Attribute;
-import org.bukkit.attribute.AttributeModifier;
 import team.devblook.pepitocore.plugin.module.event.model.GameEvent;
 
 import java.time.Duration;
@@ -79,6 +77,7 @@ public class OneHearthEvent implements GameEvent {
         return "one-hearth";
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void begin() {
         this.bossBar.progress(1);
@@ -89,13 +88,13 @@ public class OneHearthEvent implements GameEvent {
         });
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void end() {
         Bukkit.getOnlinePlayers().forEach(player -> {
             player.setHealthScale(20);
-            player.setHealth(20);
+            player.setMaxHealth(20);
+            player.hideBossBar(bossBar);
         });
-
-        Bukkit.getOnlinePlayers().forEach(player -> player.hideBossBar(bossBar));
     }
 }
