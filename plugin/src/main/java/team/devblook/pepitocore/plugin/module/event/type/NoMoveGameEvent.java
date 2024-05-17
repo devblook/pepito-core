@@ -113,7 +113,6 @@ public class NoMoveGameEvent implements GameEvent {
                             // do stuff with gay player
                             player.sendMessage(Component.text("Sos re gay.", TextColor.color(0xFF0000)));
 
-
                             Bukkit.getOnlinePlayers().forEach(onlinePlayer -> {
                                 if (onlinePlayer != player) {
                                     onlinePlayer.sendMessage(Component.text(player.getName() + " es re gay.", TextColor.color(0xFF0000)));

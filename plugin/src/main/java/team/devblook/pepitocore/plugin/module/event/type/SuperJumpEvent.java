@@ -65,7 +65,8 @@ public class SuperJumpEvent implements GameEvent {
                 Key.key("minecraft", "entity.villager.no"),
                 Sound.Source.PLAYER,
                 1.0f,
-                1.0f);
+                1.0f
+        );
     }
 
     @Override
