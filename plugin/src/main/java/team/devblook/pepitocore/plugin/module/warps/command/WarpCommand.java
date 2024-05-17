@@ -37,7 +37,7 @@ public class WarpCommand implements CommandClass {
     @Command(names = "list")
     public void list(@Sender Player player) {
         Collection<Warp> warps = warpManager.list(player);
-        if (warps.size() == 0) {
+        if (warps.isEmpty()) {
             player.sendMessage(Component.text()
                     .append(Component.text("WTF, bro no tienes warps", TextColor.fromHexString("#E7783C")))
             );
@@ -45,10 +45,18 @@ public class WarpCommand implements CommandClass {
         }
 
         for (Warp warp : warps) {
+
+            if (warp == null) {
+                player.sendMessage(Component.text()
+                        .append(Component.text("Uno de los warps al parecer está dañado.", TextColor.fromHexString("#E7783C")))
+                );
+                return;
+            }
+
             player.sendMessage(Component.text()
-                    .append(Component.text("    Warp: " + warp.id(), TextColor.fromHexString("#B3FFF2")))
+                    .append(Component.text("    Warp: ", TextColor.fromHexString("#B3FFF2")))
                     .append(Component.text(warp.id(), TextColor.fromHexString("#F3DD22")))
-                    .append(Component.text(" | Ubicación: " + warp.pos(), TextColor.fromHexString("#B3FFF2")))
+                    .append(Component.text(" | Ubicación: ", TextColor.fromHexString("#B3FFF2")))
                     .append(Component.text(String.valueOf(warp.pos()), TextColor.fromHexString("#F3DD22")))
                     .build()
             );
