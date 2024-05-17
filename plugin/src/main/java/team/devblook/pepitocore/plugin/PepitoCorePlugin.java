@@ -39,8 +39,10 @@ public final class PepitoCorePlugin
         configuration.get().getStringList("module.active-modules").forEach(value -> {
             final CoreModule module = Modules.MAPPINGS.get(value).apply(this.injector);
             if (module != null) {
+
                 modules.insert(module.id(), module);
                 module.enable();
+                this.getComponentLogger().info("Enabling module: {}", module.id());
             }
         });
     }

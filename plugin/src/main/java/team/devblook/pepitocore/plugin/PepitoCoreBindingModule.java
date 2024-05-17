@@ -41,6 +41,6 @@ public class PepitoCoreBindingModule extends AbstractModule {
         bind(new TypeLiteral<TRegistry<String, CoreModule>>() {
         }).toInstance(new LocalTRegistry<>(new HashMap<>()));
 
-        bind(BukkitConfiguration.class).toInstance(new BukkitConfiguration(plugin, "config.yml"));
+        bind(BukkitConfiguration.class).toInstance(new BukkitConfiguration(plugin, "config"));
     }
 }

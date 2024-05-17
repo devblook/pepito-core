@@ -4,6 +4,8 @@ import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.ArgOrSub;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.bukkit.annotation.Sender;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import team.devblook.pepitocore.plugin.module.tpa.TPARequestManager;
@@ -20,13 +22,17 @@ public class TPACommand implements CommandClass {
     @Command(names = "")
     public void send(@Sender Player player, OfflinePlayer target) {
         if (self(player, target)) {
-            player.sendMessage("Why do you want to send a TPA request to yourself?");
+            player.sendMessage(
+                    Component.text("¿Porque solicitarías esto a ti mismo?", TextColor.fromHexString("#E7783C"))
+            );
             return;
         }
 
         Player to = online(target);
         if (to == null) {
-            player.sendMessage("The player '" + target.getName() + "' is not online!");
+            player.sendMessage(
+                    Component.text("El jugador" + target.getName() + " no está conectado.", TextColor.fromHexString("#E7783C"))
+            );
             return;
         }
 
@@ -36,13 +42,15 @@ public class TPACommand implements CommandClass {
     @Command(names = "cancel")
     public void cancel(@Sender Player player, OfflinePlayer target) {
         if (self(player, target)) {
-            player.sendMessage("Why do you want to send a TPA request to yourself?");
+            player.sendMessage(
+                    Component.text("Emm, ¿Si no puedes solicitar un TPA a ti, porque crees que esto es lógico?", TextColor.fromHexString("#E7783C"))
+            );
             return;
         }
 
         Player to = online(target);
         if (to == null) {
-            player.sendMessage("The player '" + target.getName() + "' is not online!");
+            player.sendMessage(Component.text("El jugador" + target.getName() + " no está conectado.", TextColor.fromHexString("#E7783C")));
             return;
         }
 
@@ -50,30 +58,34 @@ public class TPACommand implements CommandClass {
     }
 
     @Command(names = "accept")
-    public void accept(@Sender Player receiver, OfflinePlayer target) {
-        if (self(receiver, target)) {
-            receiver.sendMessage("Why do you want to accept a TPA request to yourself?");
+    public void accept(@Sender Player player, OfflinePlayer target) {
+        if (self(player, target)) {
+            player.sendMessage(
+                    Component.text("Emm, ¿Si no puedes solicitar un TPA a ti, porque crees que esto es lógico?", TextColor.fromHexString("#E7783C"))
+            );
             return;
         }
         Player from = online(target);
         if (from == null) {
-            receiver.sendMessage("The player '" + target.getName() + "' is not online!");
+            player.sendMessage(Component.text("El jugador" + target.getName() + " no está conectado.", TextColor.fromHexString("#E7783C")));
             return;
         }
 
-        requestManager.accept(receiver, from);
+        requestManager.accept(player, from);
     }
 
     @Command(names = "deny")
     public void deny(@Sender Player player, OfflinePlayer target) {
         if (self(player, target)) {
-            player.sendMessage("Why do you want to deny a TPA request to yourself?");
+            player.sendMessage(
+                    Component.text("Emm, ¿Si no puedes solicitar un TPA a ti, porque crees que esto es lógico?", TextColor.fromHexString("#E7783C"))
+            );
             return;
         }
 
         Player from = online(target);
         if (from == null) {
-            player.sendMessage("The player '" + target.getName() + "' is not online!");
+            player.sendMessage(Component.text("El jugador" + target.getName() + " no está conectado.", TextColor.fromHexString("#E7783C")));
             return;
         }
 

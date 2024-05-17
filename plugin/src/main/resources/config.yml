@@ -7,4 +7,5 @@ module:
     - "sleep"
     - "broadcast"
     - "warps"
+    - "damage-indicator"
     - "chat"

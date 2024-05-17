@@ -2,6 +2,7 @@ package team.devblook.pepitocore.plugin.module.indicator.listener;
 
 import com.google.inject.Inject;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import org.bukkit.Bukkit;
@@ -27,9 +28,7 @@ public class EntityDamageListener implements Listener {
             return;
         }
 
-        TagResolver.Single indicator = Placeholder.component(
-                "damage",
-                Component.text((int) event.getFinalDamage()));
+        int damage = (int) event.getFinalDamage();
 
         ArmorStand stand = (ArmorStand) player.getWorld()
                 .spawnEntity(
@@ -42,7 +41,7 @@ public class EntityDamageListener implements Listener {
         stand.setInvulnerable(true);
         stand.setMarker(true);
         stand.setCustomNameVisible(true);
-        stand.customName(null); //this.configuration.getComponent("damage.indicator-format", indicator));
+        stand.customName(Component.text("-" + damage, TextColor.color(0xAE1F20))); //this.configuration.getComponent("damage.indicator-format", indicator));
         stand.getPersistentDataContainer().set(
                 INDICATOR_KEY,
                 PersistentDataType.STRING,

@@ -1,6 +1,8 @@
 package team.devblook.pepitocore.plugin.module.tpa;
 
 import com.google.common.collect.Multimap;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.entity.Player;
 import team.devblook.pepitocore.plugin.module.tpa.model.TPARequest;
 
@@ -20,14 +22,20 @@ public class TPARequestManager {
 
         Collection<TPARequest> sent = requests.get(to.getUniqueId());
         if (sent.contains(request)) {
-            from.sendMessage("You've already sent a TPA request to '" + to.getName() + "'!");
+            from.sendMessage(
+                    Component.text("Ya enviaste una solicitud a '" + to.getName() + "'.", TextColor.fromHexString("#E7783C"))
+            );
             return;
         }
 
         sent.add(request);
 
-        from.sendMessage("TPA request sent to '" + to.getName() + "'!");
-        to.sendMessage("TPA request received from '" + from.getName() + "'!");
+        from.sendMessage(
+                Component.text("Enviaste solicitud de TPA a '" + to.getName() + "'.", TextColor.fromHexString("#35bd30"))
+        );
+        to.sendMessage(
+                Component.text("Tienes una solicitud de TPA pendiente de '" + from.getName() + "'.", TextColor.fromHexString("#35bd30"))
+        );
     }
 
     public void accept(Player receiver, Player from) {
@@ -35,13 +43,19 @@ public class TPARequestManager {
 
         Collection<TPARequest> received = requests.get(receiver.getUniqueId());
         if (!received.remove(request)) {
-            receiver.sendMessage("You don't have any incoming TPA requests from '" + from.getName() + "'.");
+            receiver.sendMessage(
+                    Component.text("No tienes solicitudes pendientes de '" + from.getName() + "'.", TextColor.fromHexString("#E7783C"))
+            );
             return;
         }
 
         from.teleport(receiver.getLocation());
-        from.sendMessage("Your TPA request to '" + receiver.getName() + "' was accepted!");
-        receiver.sendMessage("TPA request from '" + from.getName() + "' accepted!");
+        from.sendMessage(
+                Component.text("La solicitud de '" + receiver.getName() + "' fue aceptada.", TextColor.fromHexString("#35bd30"))
+        );
+        receiver.sendMessage(
+                Component.text("Aceptaste la solicitud de '" + from.getName() + "'.", TextColor.fromHexString("#35bd30"))
+        );
     }
 
     public void cancel(Player from, Player to) {
@@ -49,12 +63,18 @@ public class TPARequestManager {
 
         Collection<TPARequest> sent = requests.get(to.getUniqueId());
         if (!sent.remove(request)) {
-            from.sendMessage("You haven't sent a TPA request to '" + to.getName() + "'!");
+            from.sendMessage(
+                    Component.text("No enviaste solicitudes a '" + from.getName() + "'.", TextColor.fromHexString("#E7783C"))
+            );
             return;
         }
 
-        from.sendMessage("TPA request to '" + to.getName() + "' cancelled!");
-        to.sendMessage("The TPA request from '" + from.getName() + "' was cancelled!");
+        from.sendMessage(
+                Component.text("La solicitud de '" + to.getName() + "' fue cancelada.", TextColor.fromHexString("#35bd30"))
+        );
+        to.sendMessage(
+                Component.text("Cancelaste la solicitud de '" + from.getName() + "'.", TextColor.fromHexString("#35bd30"))
+        );
     }
 
     public void deny(Player receiver, Player from) {
@@ -65,7 +85,11 @@ public class TPARequestManager {
             return;
         }
 
-        from.sendMessage("Your TPA request to '" + receiver.getName() + "' was denied!");
-        receiver.sendMessage("Denied TPA request from '" + from.getName() + "'!");
+        from.sendMessage(
+                Component.text("Tu solicitud de '" + receiver.getName() + "' fue denegada.", TextColor.fromHexString("#35bd30"))
+        );
+        receiver.sendMessage(
+                Component.text("Se denegó la solicitud de '" + from.getName() + "'.", TextColor.fromHexString("#35bd30"))
+        );
     }
 }

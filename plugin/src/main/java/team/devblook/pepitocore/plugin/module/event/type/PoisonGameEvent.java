@@ -38,12 +38,17 @@ public class PoisonGameEvent implements GameEvent {
     @Override
     public Component description() {
         return Component.text()
+                .appendNewline()
+                .appendNewline()
                 .append(Component.text("¡Bienvenido al juego del veneno!", TextColor.color(0x526AA9)))
-                .append(Component.text("Tendrás veneno por" + duration() + " minutos", TextColor.color(0xE4FFE5)))
                 .appendNewline()
-                .append(Component.text("Ah... Y no podrán tomar leche para curarse.", TextColor.color(0xE4FFE5)))
+                .append(Component.text("    Tendrás veneno por " + duration() + " minuto(s)", TextColor.color(0xE4FFE5)))
                 .appendNewline()
-                .append(Component.text("¡Buena suerte!", TextColor.color(0x35BD30)))
+                .append(Component.text("    Ah... Y no podrán tomar leche para curarse.", TextColor.color(0xE4FFE5)))
+                .appendNewline()
+                .append(Component.text("    ¡Buena suerte!", TextColor.color(0x35BD30)))
+                .appendNewline()
+                .appendNewline()
                 .build();
     }
 
@@ -51,7 +56,7 @@ public class PoisonGameEvent implements GameEvent {
     public Title title() {
         return Title.title(
                 Component.text("ᴛᴏxɪᴄᴏs", TextColor.color(0x43AE33)),
-                Component.text("Tu amiga la toxica te enveneno por " + duration() + " minutos", TextColor.color(0xE4FFE5))
+                Component.text("Tu amiga la toxica te enveneno por " + duration() + " minuto(s)", TextColor.color(0xE4FFE5))
         );
     }
 

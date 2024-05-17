@@ -35,13 +35,17 @@ public class NoMoveGameEvent implements GameEvent {
     @Override
     public Component description() {
         return Component.text()
+                .appendNewline()
+                .appendNewline()
                 .append(Component.text("¡EL QUE SE MUEVA ES GAY!", TextColor.color(0xA9009D)))
                 .appendNewline()
-                .append(Component.text("No te muevas, porque si no serás muy gay", TextColor.color(0xE4FFE5)))
+                .append(Component.text("    No te muevas, porque si no serás muy gay", TextColor.color(0xE4FFE5)))
                 .appendNewline()
-                .append(Component.text("Y el que se salga será baneado", TextColor.color(0xE4FFE5)))
+                .append(Component.text("    Y el que se salga será baneado", TextColor.color(0xE4FFE5)))
                 .appendNewline()
-                .append(Component.text("¡No seas gay!", TextColor.color(0x35BD30)))
+                .append(Component.text("    ¡No seas gay!", TextColor.color(0x35BD30)))
+                .appendNewline()
+                .appendNewline()
                 .build();
     }
 
