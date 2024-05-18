@@ -8,18 +8,14 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import team.devblook.pepitocore.api.registry.TRegistry;
 import team.devblook.pepitocore.plugin.BlockLocation;
-import team.devblook.pepitocore.plugin.module.back.LockedLocation;
+import team.devblook.pepitocore.plugin.module.back.model.LockedLocation;
 
-import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 
-public class PlayerDeathListener implements Listener {
+import static team.devblook.pepitocore.plugin.module.back.UnlockMaterials.MATERIALS;
+import static team.devblook.pepitocore.plugin.util.Randoms.RANDOM;
 
-    private static final Random RANDOM = new Random();
-    private static final List<Material> MATERIALS = List.of(
-            Material.STONE
-    );
+public class PlayerDeathListener implements Listener {
 
     private @Inject TRegistry<UUID, LockedLocation> locations;
 
@@ -27,9 +23,10 @@ public class PlayerDeathListener implements Listener {
     public void onDeath(PlayerDeathEvent event) {
         Player player = event.getPlayer();
 
+        Material material = MATERIALS.get(RANDOM.nextInt(MATERIALS.size()));
         LockedLocation location = new LockedLocation(
-                MATERIALS.get(RANDOM.nextInt(MATERIALS.size())),
-                RANDOM.nextInt(64),
+                material,
+                RANDOM.nextInt(material.getMaxStackSize()),
                 BlockLocation.fromLocation(player.getLocation())
         );
 

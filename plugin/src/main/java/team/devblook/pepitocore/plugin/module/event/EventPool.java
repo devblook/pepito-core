@@ -15,11 +15,11 @@ import team.devblook.pepitocore.plugin.module.event.type.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
+
+import static team.devblook.pepitocore.plugin.util.Randoms.RANDOM;
 
 public class EventPool implements Runnable {
 
-    private static final Random RANDOM = new Random();
     private static final List<GameEvent> EVENTS = List.of(
             new PoisonGameEvent(),
             new NoMoveGameEvent(),
@@ -102,7 +102,7 @@ public class EventPool implements Runnable {
                             current.duration() * 20L * 60L
                     );
                 },
-                5 * 20
+                3 * 20
         ).getTaskId();
     }
 

@@ -1,4 +1,4 @@
-package team.devblook.pepitocore.plugin.module.back;
+package team.devblook.pepitocore.plugin.module.back.model;
 
 import org.bukkit.Material;
 import team.devblook.pepitocore.plugin.BlockLocation;
