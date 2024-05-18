@@ -9,9 +9,6 @@ import org.jetbrains.annotations.NotNull;
 
 public class UserChatRenderer implements ChatRenderer {
 
-    public UserChatRenderer() {
-    }
-
     @Override
     public @NotNull Component render(
             @NotNull final Player source,
