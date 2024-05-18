@@ -101,7 +101,9 @@ public class PoisonGameEvent implements GameEvent {
 
     @Override
     public void end() {
-        Bukkit.getOnlinePlayers().forEach(player -> player.hideBossBar(bossBar));
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            player.hideBossBar(bossBar);
+        }
     }
 
     @Override

@@ -105,6 +105,13 @@ public class IncreasedMobDamageEvent implements GameEvent {
     }
 
     @Override
+    public void end() {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            player.hideBossBar(bossBar);
+        }
+    }
+
+    @Override
     public Map<Class<? extends Event>, GameEventExecutor<? extends Event>> events() {
         return Map.of(
                 EntityDamageByEntityEvent.class,

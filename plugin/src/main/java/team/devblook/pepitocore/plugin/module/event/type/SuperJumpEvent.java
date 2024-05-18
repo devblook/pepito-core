@@ -7,6 +7,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import team.devblook.pepitocore.plugin.module.event.model.GameEvent;
@@ -85,13 +86,18 @@ public class SuperJumpEvent implements GameEvent {
     }
 
     @Override
-    public void end() {
-        Bukkit.getOnlinePlayers().forEach(player -> player.hideBossBar(bossBar));
+    public void begin() {
+        this.bossBar.progress(1);
+
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            player.addPotionEffect(poison);
+        }
     }
 
     @Override
-    public void begin() {
-        this.bossBar.progress(1);
-        Bukkit.getOnlinePlayers().forEach(player -> player.addPotionEffect(poison));
+    public void end() {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            player.hideBossBar(bossBar);
+        }
     }
 }

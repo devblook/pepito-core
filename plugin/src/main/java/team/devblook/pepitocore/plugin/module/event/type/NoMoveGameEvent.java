@@ -96,7 +96,9 @@ public class NoMoveGameEvent implements GameEvent {
     public void end() {
         gay = null;
 
-        Bukkit.getOnlinePlayers().forEach(player -> player.hideBossBar(bossBar));
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            player.hideBossBar(bossBar);
+        }
     }
 
     @Override
