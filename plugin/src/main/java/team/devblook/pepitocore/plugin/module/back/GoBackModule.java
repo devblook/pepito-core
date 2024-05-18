@@ -3,7 +3,6 @@ package team.devblook.pepitocore.plugin.module.back;
 import com.google.inject.Inject;
 import me.fixeddev.commandflow.CommandManager;
 import me.fixeddev.commandflow.annotated.AnnotatedCommandTreeBuilder;
-import me.fixeddev.commandflow.bukkit.BukkitCommandManager;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.Plugin;

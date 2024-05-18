@@ -77,7 +77,8 @@ public class PoisonGameEvent implements GameEvent {
                 Key.key("minecraft", "entity.villager.yes"),
                 Sound.Source.PLAYER,
                 1.0f,
-                1.0f);
+                1.0f
+        );
     }
 
     @Override

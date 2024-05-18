@@ -18,11 +18,13 @@ import team.devblook.pepitocore.plugin.module.event.model.GameEvent;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.util.Map;
+import java.util.UUID;
 
 public class NoMoveGameEvent implements GameEvent {
 
     private final BossBar bossBar = BossBar.bossBar(this::name, 1, BossBar.Color.PINK, BossBar.Overlay.PROGRESS);
-    private boolean isSomeoneGay;
+
+    private UUID gay;
 
     @Override
     public String id() {
@@ -71,7 +73,8 @@ public class NoMoveGameEvent implements GameEvent {
                 Key.key("minecraft", "entity.villager.no"),
                 Sound.Source.PLAYER,
                 1.0f,
-                1.0f);
+                1.0f
+        );
     }
 
     @Override
@@ -91,7 +94,7 @@ public class NoMoveGameEvent implements GameEvent {
 
     @Override
     public void end() {
-        isSomeoneGay = false;
+        gay = null;
 
         Bukkit.getOnlinePlayers().forEach(player -> player.hideBossBar(bossBar));
     }
@@ -103,13 +106,14 @@ public class NoMoveGameEvent implements GameEvent {
                 new GameEventExecutor<>(
                         PlayerMoveEvent.class,
                         event -> {
-                            if (isSomeoneGay) {
+                            if (gay != null) {
                                 return;
                             }
 
-                            isSomeoneGay = true;
-
                             Player player = event.getPlayer();
+
+                            gay = player.getUniqueId();
+
                             // do stuff with gay player
                             player.sendMessage(Component.text("Sos re gay.", TextColor.color(0xFF0000)));
 
@@ -124,11 +128,9 @@ public class NoMoveGameEvent implements GameEvent {
                 new GameEventExecutor<>(
                         PlayerQuitEvent.class,
                         event -> {
-                            if (isSomeoneGay) {
+                            if (gay != null) {
                                 return;
                             }
-
-                            Player player = event.getPlayer();
 
                             Bukkit.getBanList(BanListType.PROFILE).addBan(
                                     event.getPlayer().getPlayerProfile(),

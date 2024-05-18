@@ -19,6 +19,10 @@ public class GameEventExecutor<T extends Event> implements EventExecutor {
 
     @Override
     public void execute(@NotNull Listener listener, @NotNull Event event) {
+        if (!eventClass.isInstance(event)) {
+            return;
+        }
+
         action.accept(eventClass.cast(event));
     }
 }
