@@ -28,6 +28,9 @@ dependencies {
     implementation("com.google.inject:guice:7.0.0")
 
     implementation("me.fixeddev:commandflow-bukkit:0.6.0")
+
+    // https://mvnrepository.com/artifact/net.jodah/expiringmap
+    implementation("net.jodah:expiringmap:0.5.11")
 }
 
 tasks {

@@ -4,7 +4,9 @@ import com.google.common.collect.Multimap;
 import com.google.inject.Inject;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import team.devblook.pepitocore.plugin.BlockLocation;
 import team.devblook.pepitocore.plugin.module.warps.model.Warp;
 
 import java.util.Collection;
@@ -17,7 +19,7 @@ public class WarpManager {
     public void create(Player player, String name) {
         Collection<Warp> owning = warps.get(player.getUniqueId());
 
-        Warp warp = new Warp(name, player.getUniqueId().toString(), BlockPos.of(player.getLocation()));
+        Warp warp = new Warp(name, player.getUniqueId().toString(), BlockLocation.fromLocation(player.getLocation()));
         if (owning.contains(warp)) {
             player.sendMessage(Component.text()
                     .append(Component.text("El warp '" + name + "' ya existe.", TextColor.fromHexString("#E7783C")))
@@ -64,7 +66,15 @@ public class WarpManager {
             return;
         }
 
-        player.teleport(warp.pos().toLocation());
+        Location location = warp.pos().toLocation();
+        if (location == null) {
+            player.sendMessage(Component.text()
+                    .append(Component.text("El  mundo en que se encontraba tu warp '" + name + "' ya no existe.", TextColor.fromHexString("#E7783C")))
+            );
+            return;
+        }
+
+        player.teleport(location);
         player.sendMessage(Component.text()
                 .append(Component.text("Enviándote al warp '" + name + "'", TextColor.fromHexString("#35bd30")))
         );

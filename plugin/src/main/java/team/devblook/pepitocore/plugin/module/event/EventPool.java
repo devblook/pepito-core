@@ -54,18 +54,18 @@ public class EventPool implements Runnable {
             }
         }
 
-        bossBarTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(
-                plugin,
-                new BossBarTask(current),
-                0L,
-                20L
-        );
-
         // improve this shit fr
         task = Bukkit.getScheduler().runTaskLater(
                 plugin,
                 () -> {
                     current.begin();
+
+                    bossBarTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(
+                            plugin,
+                            new BossBarTask(current),
+                            0L,
+                            20L
+                    );
 
                     for (Map.Entry<Class<? extends Event>, GameEventExecutor<? extends Event>> entry : current.events().entrySet()) {
                         Bukkit.getPluginManager().registerEvent(

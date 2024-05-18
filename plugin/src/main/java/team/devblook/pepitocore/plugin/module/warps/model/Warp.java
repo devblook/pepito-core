@@ -1,7 +1,7 @@
 package team.devblook.pepitocore.plugin.module.warps.model;
 
 import team.devblook.pepitocore.api.Identity;
-import team.devblook.pepitocore.plugin.module.warps.BlockPos;
+import team.devblook.pepitocore.plugin.BlockLocation;
 
 import java.util.Objects;
 
@@ -10,9 +10,9 @@ public class Warp implements Identity {
     private final String name;
     private final String owner;
 
-    private final BlockPos pos;
+    private final BlockLocation pos;
 
-    public Warp(String name, String owner, BlockPos pos) {
+    public Warp(String name, String owner, BlockLocation pos) {
         this.name = name;
         this.owner = owner;
         this.pos = pos;
@@ -27,7 +27,7 @@ public class Warp implements Identity {
         return this.owner;
     }
 
-    public BlockPos pos() {
+    public BlockLocation pos() {
         return this.pos;
     }
 

@@ -9,3 +9,4 @@ module:
     - "warps"
     - "damage-indicator"
     - "chat"
+    - "back"

@@ -22,7 +22,7 @@ public class WarpsModule implements CoreModule {
 
     private @Inject UserWarpListener listener;
     private @Inject Plugin plugin;
-    private @Inject WarpCommand command;
+    private @Inject WarpCommand command; // command is being built two times, fix that
 
     private @Inject TDatastore<Warp> datastore;
     private @Inject Multimap<UUID, Warp> warps;
