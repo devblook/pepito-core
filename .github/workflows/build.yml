@@ -1,4 +1,4 @@
-# This workflow will build Akropolis with Gradle.
+# This workflow will build PepitoCore with Gradle.
 # It will be compiled against Java 17.
 name: Build
 on:
@@ -8,11 +8,10 @@ on:
     branches: [ main ]
 
 jobs:
-  # Builds Akropolis in recommended JDK version.
+  # Builds PepitoCore in recommended JDK version.
   build-plugin:
     runs-on: ubuntu-latest
 
-    # For Minecraft 1.19, Java 17+ is needed/recommended.
     strategy:
       matrix:
         java_version: [ 17 ]
