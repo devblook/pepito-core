@@ -34,7 +34,7 @@ jobs:
           cache: gradle
 
       - name: Build plugin
-        run: ./gradlew build
+        run: ./gradlew reobfJar
 
       - name: Cleanup Gradle Cache
         # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
@@ -47,4 +47,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: PepitoCore Artifact
-          path: build/libs/*.jar
+          path: plugin/build/libs/*.jar
