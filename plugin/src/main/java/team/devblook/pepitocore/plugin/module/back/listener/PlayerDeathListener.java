@@ -26,7 +26,7 @@ public class PlayerDeathListener implements Listener {
         Material material = MATERIALS.get(RANDOM.nextInt(MATERIALS.size()));
         LockedLocation location = new LockedLocation(
                 material,
-                RANDOM.nextInt(material.getMaxStackSize()),
+                RANDOM.nextInt(material.getMaxStackSize() - 1) + 1,
                 BlockLocation.fromLocation(player.getLocation())
         );
 

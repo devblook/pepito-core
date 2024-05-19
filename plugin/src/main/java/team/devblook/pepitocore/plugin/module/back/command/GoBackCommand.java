@@ -81,7 +81,7 @@ public class GoBackCommand implements CommandClass {
             material = MATERIALS.get(RANDOM.nextInt(MATERIALS.size()));
         }
 
-        int amount = RANDOM.nextInt(material.getMaxStackSize());
+        int amount = RANDOM.nextInt(material.getMaxStackSize() - 1) + 1;
         locations.insert(
                 player.getUniqueId(),
                 new LockedLocation(
