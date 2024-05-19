@@ -1,6 +1,8 @@
 package team.devblook.pepitocore.plugin.module.back.listener;
 
 import com.google.inject.Inject;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -30,7 +32,10 @@ public class PlayerDeathListener implements Listener {
                 BlockLocation.fromLocation(player.getLocation())
         );
 
-        player.sendMessage("Si quieres volver al punto en que moriste, puedes usar /back por el módico precio de " + location.amount() + "x " + location.type() + ".");
+        player.sendMessage(Component.text(
+                "Si quieres volver al punto en que moriste, puedes usar /back por el módico precio de " + location.amount() + "x " + location.type() + ".",
+                TextColor.fromHexString("E7783C")
+        ));
 
         locations.insert(
                 player.getUniqueId(),
