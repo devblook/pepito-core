@@ -5,6 +5,8 @@ import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.ArgOrSub;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.bukkit.annotation.Sender;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -27,10 +29,10 @@ public class GoBackCommand implements CommandClass {
     private @Inject TRegistry<UUID, LockedLocation> locations;
 
     @Command(names = "")
-    public void main(@Sender Player player) {
+    public void execute(@Sender Player player) {
         LockedLocation back = locations.find(player.getUniqueId());
         if (back == null) {
-            player.sendMessage("No se ha encontrado ningún punto de muerte reciente, probablemente ya expiró.");
+            player.sendMessage(Component.text("No se ha encontrado ningún punto de muerte reciente, probablemente ya expiró.", TextColor.fromHexString("#E7783C")));
             return;
         }
 
@@ -38,7 +40,10 @@ public class GoBackCommand implements CommandClass {
 
         ItemStack hand = inventory.getItemInMainHand();
         if (hand.getType() != back.type() || hand.getAmount() < back.amount()) {
-            player.sendMessage("Necesitas " + back.amount() + "x " + back.type() + " en la mano como pago para enviarte a tu último punto de muerte.");
+            player.sendMessage(Component.text(
+                    "Necesitas " + back.amount() + "x " + back.type() + " en la mano como pago para enviarte a tu último punto de muerte.",
+                    TextColor.fromHexString("#E7783C")
+            ));
             return;
         }
 
@@ -46,7 +51,10 @@ public class GoBackCommand implements CommandClass {
 
         Location location = back.location().toLocation();
         if (location == null) {
-            player.sendMessage("El  mundo en que se encontraba tu último punto de muerte ya no existe.");
+            player.sendMessage(Component.text(
+                    "El  mundo en que se encontraba tu último punto de muerte ya no existe.",
+                    TextColor.fromHexString("#E7783C")
+            ));
             return;
         }
 
@@ -55,7 +63,10 @@ public class GoBackCommand implements CommandClass {
 
         player.teleport(location);
 
-        player.sendMessage("Has sido enviado a tu último punto de muerte.");
+        player.sendMessage(Component.text(
+                "¡Has sido enviado a tu último punto de muerte!",
+                TextColor.fromHexString("#35BD30")
+        ));
     }
 
     @Command(names = "roll")
@@ -69,7 +80,10 @@ public class GoBackCommand implements CommandClass {
         PlayerInventory inventory = player.getInventory();
         ItemStack hand = inventory.getItemInMainHand();
         if (hand.getType() != ROLL_PRICE.getType() || hand.getAmount() < ROLL_PRICE.getAmount()) {
-            player.sendMessage("Necesitas " + ROLL_PRICE.getAmount() + "x " + ROLL_PRICE.getType() + " en la mano como pago para cambiar el precio de pago y extender la duración.");
+            player.sendMessage(Component.text(
+                    "Necesitas " + ROLL_PRICE.getAmount() + "x " + ROLL_PRICE.getType() + " en la mano como pago para cambiar el precio de pago y extender la duración.",
+                    TextColor.fromHexString("#E7783C")
+            ));
             return;
         }
 
@@ -91,6 +105,9 @@ public class GoBackCommand implements CommandClass {
                 )
         );
 
-        player.sendMessage("El precio para regresar a tu último punto de muerte ahora es de " + amount + "x " + material + ".");
+        player.sendMessage(Component.text(
+                "El precio para regresar a tu último punto de muerte ahora es de " + amount + "x " + material + ".",
+                TextColor.fromHexString("#E7783C")
+        ));
     }
 }
