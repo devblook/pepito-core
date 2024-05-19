@@ -22,13 +22,18 @@ import java.util.UUID;
 
 public class NoMoveGameEvent implements GameEvent {
 
-    private final BossBar bossBar = BossBar.bossBar(this::name, 1, BossBar.Color.PINK, BossBar.Overlay.PROGRESS);
+    private final BossBar bossBar = BossBar.bossBar(
+            this::name,
+            1,
+            BossBar.Color.PINK,
+            BossBar.Overlay.PROGRESS
+    );
 
     private UUID gay;
 
     @Override
     public String id() {
-        return "no-move-game-event";
+        return "no-move";
     }
 
     @Override
@@ -89,16 +94,22 @@ public class NoMoveGameEvent implements GameEvent {
 
     @Override
     public void begin() {
-        this.bossBar.progress(1);
+        if (gay != null) {
+            Bukkit.dispatchCommand(
+                    Bukkit.getConsoleSender(),
+                    "lp user " + gay + " parent remove gay"
+            );
+
+            gay = null;
+        }
     }
 
     @Override
     public void end() {
-        gay = null;
-
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            player.hideBossBar(bossBar);
-        }
+        Bukkit.dispatchCommand(
+                Bukkit.getConsoleSender(),
+                "lp user " + gay + " parent add gay"
+        );
     }
 
     @Override

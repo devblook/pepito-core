@@ -16,13 +16,23 @@ import java.time.Duration;
 
 public class SuperJumpEvent implements GameEvent {
 
-    private final BossBar bossBar = BossBar.bossBar(this::name, 1, BossBar.Color.PURPLE, BossBar.Overlay.PROGRESS);
+    private final BossBar bossBar = BossBar.bossBar(
+            this::name,
+            1,
+            BossBar.Color.PURPLE,
+            BossBar.Overlay.PROGRESS
+    );
 
     private final PotionEffect poison = new PotionEffect(
             PotionEffectType.JUMP,
             duration() * 20 * 60,
             20
     );
+
+    @Override
+    public String id() {
+        return "super-jump";
+    }
 
     @Override
     public Component name() {
@@ -81,23 +91,9 @@ public class SuperJumpEvent implements GameEvent {
     }
 
     @Override
-    public String id() {
-        return "super-jump";
-    }
-
-    @Override
     public void begin() {
-        this.bossBar.progress(1);
-
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.addPotionEffect(poison);
-        }
-    }
-
-    @Override
-    public void end() {
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            player.hideBossBar(bossBar);
         }
     }
 }

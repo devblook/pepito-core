@@ -7,11 +7,14 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
+import org.bukkit.entity.Player;
 import team.devblook.pepitocore.plugin.module.event.model.GameEvent;
 
 import java.time.Duration;
 
-public class OneHearthEvent implements GameEvent {
+public class OneHeartEvent implements GameEvent {
 
     private final BossBar bossBar = BossBar.bossBar(
             this::name,
@@ -19,6 +22,11 @@ public class OneHearthEvent implements GameEvent {
             BossBar.Color.RED,
             BossBar.Overlay.PROGRESS
     );
+
+    @Override
+    public String id() {
+        return "one-heart";
+    }
 
     @Override
     public Component name() {
@@ -73,28 +81,22 @@ public class OneHearthEvent implements GameEvent {
     }
 
     @Override
-    public String id() {
-        return "one-hearth";
-    }
-
-    @SuppressWarnings("deprecation")
-    @Override
     public void begin() {
-        this.bossBar.progress(1);
-        Bukkit.getOnlinePlayers().forEach(player -> {
-            player.setHealthScale(2);
-            player.setHealth(2);
-            player.setMaxHealth(2);
-        });
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            AttributeInstance attribute = player.getAttribute(Attribute.GENERIC_MAX_HEALTH);
+            if (attribute != null) {
+                attribute.setBaseValue(2);
+            }
+        }
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public void end() {
-        Bukkit.getOnlinePlayers().forEach(player -> {
-            player.setHealthScale(20);
-            player.setMaxHealth(20);
-            player.hideBossBar(bossBar);
-        });
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            AttributeInstance attribute = player.getAttribute(Attribute.GENERIC_MAX_HEALTH);
+            if (attribute != null) {
+                attribute.setBaseValue(20);
+            }
+        }
     }
 }

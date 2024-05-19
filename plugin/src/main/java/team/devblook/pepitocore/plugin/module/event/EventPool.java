@@ -24,7 +24,7 @@ public class EventPool implements Runnable {
             new PoisonGameEvent(),
             new NoMoveGameEvent(),
             new SuperJumpEvent(),
-            new OneHearthEvent(),
+            new OneHeartEvent(),
             new IncreasedMobDamageEvent()
     );
 
@@ -84,6 +84,15 @@ public class EventPool implements Runnable {
 
                                 Bukkit.getScheduler().cancelTask(bossBarTask);
                                 HandlerList.unregisterAll(current);
+
+                                BossBar bossBar = current.bossBar();
+                                if (bossBar != null) {
+                                    current.bossBar().progress(1);
+
+                                    for (Player player : Bukkit.getOnlinePlayers()) {
+                                        player.hideBossBar(current.bossBar());
+                                    }
+                                }
 
                                 current = null;
 

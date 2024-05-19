@@ -93,16 +93,8 @@ public class PoisonGameEvent implements GameEvent {
 
     @Override
     public void begin() {
-        this.bossBar.progress(1);
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.addPotionEffect(poison);
-        }
-    }
-
-    @Override
-    public void end() {
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            player.hideBossBar(bossBar);
         }
     }
 
