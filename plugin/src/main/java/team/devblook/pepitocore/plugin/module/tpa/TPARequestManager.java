@@ -1,21 +1,20 @@
 package team.devblook.pepitocore.plugin.module.tpa;
 
 import com.google.common.collect.Multimap;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.entity.Player;
 import team.devblook.pepitocore.plugin.module.tpa.model.TPARequest;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import java.util.Collection;
 import java.util.UUID;
 
 @Singleton
 public class TPARequestManager {
 
-    @Inject
-    private Multimap<UUID, TPARequest> requests;
+    private @Inject Multimap<UUID, TPARequest> requests;
 
     public void send(Player from, Player to) {
         TPARequest request = new TPARequest(from, to);

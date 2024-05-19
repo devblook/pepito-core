@@ -1,5 +1,6 @@
 package team.devblook.pepitocore.plugin.module.tpa.command;
 
+import com.google.inject.Inject;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.ArgOrSub;
 import me.fixeddev.commandflow.annotated.annotation.Command;
@@ -10,14 +11,11 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import team.devblook.pepitocore.plugin.module.tpa.TPARequestManager;
 
-import javax.inject.Inject;
-
 @Command(names = "tpa")
 @ArgOrSub(value = true)
 public class TPACommand implements CommandClass {
 
-    @Inject
-    private TPARequestManager requestManager;
+    private @Inject TPARequestManager requestManager;
 
     @Command(names = "")
     public void send(@Sender Player player, OfflinePlayer target) {
