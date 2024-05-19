@@ -21,7 +21,7 @@ public class TPACommand implements CommandClass {
     public void send(@Sender Player player, OfflinePlayer target) {
         if (self(player, target)) {
             player.sendMessage(
-                    Component.text("¿Porque solicitarías esto a ti mismo?", TextColor.fromHexString("#E7783C"))
+                    Component.text("¿Por qué solicitarías TPA a ti mismo?", TextColor.fromHexString("#E7783C"))
             );
             return;
         }
@@ -29,7 +29,7 @@ public class TPACommand implements CommandClass {
         Player to = online(target);
         if (to == null) {
             player.sendMessage(
-                    Component.text("El jugador" + target.getName() + " no está conectado.", TextColor.fromHexString("#E7783C"))
+                    Component.text("El jugador " + target.getName() + " no está conectado.", TextColor.fromHexString("#E7783C"))
             );
             return;
         }
@@ -41,14 +41,14 @@ public class TPACommand implements CommandClass {
     public void cancel(@Sender Player player, OfflinePlayer target) {
         if (self(player, target)) {
             player.sendMessage(
-                    Component.text("Emm, ¿Si no puedes solicitar un TPA a ti, porque crees que esto es lógico?", TextColor.fromHexString("#E7783C"))
+                    Component.text("Emm, ¿Si no puedes solicitarte un TPA, por qué crees que esto es lógico?", TextColor.fromHexString("#E7783C"))
             );
             return;
         }
 
         Player to = online(target);
         if (to == null) {
-            player.sendMessage(Component.text("El jugador" + target.getName() + " no está conectado.", TextColor.fromHexString("#E7783C")));
+            player.sendMessage(Component.text("El jugador " + target.getName() + " no está conectado.", TextColor.fromHexString("#E7783C")));
             return;
         }
 
@@ -59,7 +59,7 @@ public class TPACommand implements CommandClass {
     public void accept(@Sender Player player, OfflinePlayer target) {
         if (self(player, target)) {
             player.sendMessage(
-                    Component.text("Emm, ¿Si no puedes solicitar un TPA a ti, porque crees que esto es lógico?", TextColor.fromHexString("#E7783C"))
+                    Component.text("Emm, ¿Si no puedes solicitarte un TPA, por qué crees que esto es lógico?", TextColor.fromHexString("#E7783C"))
             );
             return;
         }

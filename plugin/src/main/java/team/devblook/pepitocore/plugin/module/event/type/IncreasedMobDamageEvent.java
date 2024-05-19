@@ -100,6 +100,8 @@ public class IncreasedMobDamageEvent implements GameEvent {
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.addPotionEffect(slowness);
         }
+
+        Bukkit.getWorlds().get(0).setTime(14000);
     }
 
     @Override
