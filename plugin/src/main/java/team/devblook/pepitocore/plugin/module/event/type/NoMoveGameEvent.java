@@ -97,7 +97,7 @@ public class NoMoveGameEvent implements GameEvent {
         if (gay != null) {
             Bukkit.dispatchCommand(
                     Bukkit.getConsoleSender(),
-                    "lp user " + gay + " parent remove gay"
+                    "lp user " + gay + " parent removetemp gay"
             );
 
             gay = null;
@@ -106,10 +106,12 @@ public class NoMoveGameEvent implements GameEvent {
 
     @Override
     public void end() {
-        Bukkit.dispatchCommand(
-                Bukkit.getConsoleSender(),
-                "lp user " + gay + " parent add gay"
-        );
+        if (gay != null) {
+            Bukkit.dispatchCommand(
+                    Bukkit.getConsoleSender(),
+                    "lp user " + gay + " parent addtemp gay 1d"
+            );
+        }
     }
 
     @Override
