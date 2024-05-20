@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import team.devblook.pepitocore.plugin.module.restart.RestartRunnable;
 
-@Command(names = "restart")
+@Command(names = "autorestart")
 public class RestartCommand implements CommandClass {
 
     private @Inject RestartRunnable restartRunnable;
@@ -40,7 +40,7 @@ public class RestartCommand implements CommandClass {
         autoRestartTaskId = Bukkit.getScheduler().runTaskLater(
                 plugin,
                 restartRunnable,
-                time * 20L * 60L
+                time * 20L
         ).getTaskId();
     }
 
