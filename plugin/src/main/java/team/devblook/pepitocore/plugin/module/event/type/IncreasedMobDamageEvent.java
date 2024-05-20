@@ -92,7 +92,7 @@ public class IncreasedMobDamageEvent implements GameEvent {
 
     @Override
     public int duration() {
-        return 4;
+        return 3;
     }
 
     @Override
