@@ -9,6 +9,7 @@ import team.devblook.pepitocore.plugin.module.broadcast.BroadcastModule;
 import team.devblook.pepitocore.plugin.module.chat.ChatModule;
 import team.devblook.pepitocore.plugin.module.event.EventModule;
 import team.devblook.pepitocore.plugin.module.indicator.IndicatorModule;
+import team.devblook.pepitocore.plugin.module.restart.RestartModule;
 import team.devblook.pepitocore.plugin.module.sleep.SleepModule;
 import team.devblook.pepitocore.plugin.module.tpa.TPAModule;
 import team.devblook.pepitocore.plugin.module.tpa.binding.TPABindingModule;
@@ -28,6 +29,7 @@ public interface Modules {
             "warps", injector -> injector.createChildInjector(new WarpBindingModule(injector.getInstance(Plugin.class))).getInstance(WarpsModule.class),
             "damage-indicator", injector -> injector.getInstance(IndicatorModule.class),
             "chat", injector -> injector.getInstance(ChatModule.class),
-            "back", injector -> injector.createChildInjector(new GoBackBindingModule()).getInstance(GoBackModule.class)
+            "back", injector -> injector.createChildInjector(new GoBackBindingModule()).getInstance(GoBackModule.class),
+            "restart", injector -> injector.getInstance(RestartModule.class)
     );
 }

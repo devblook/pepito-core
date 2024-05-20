@@ -14,7 +14,7 @@ public class TPAModule implements CoreModule {
     private @Inject CommandManager manager;
     private @Inject AnnotatedCommandTreeBuilder treeBuilder;
 
-    private @Inject TPACommand command;
+    private @Inject TPACommand command; // command is being built two times, fix that
     private @Inject TPARequestExpireTask task;
 
     @Override

@@ -10,3 +10,4 @@ module:
     - "damage-indicator"
     - "chat"
     - "back"
+    - "restart"
