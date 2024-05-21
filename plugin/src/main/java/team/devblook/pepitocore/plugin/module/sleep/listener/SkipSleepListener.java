@@ -16,38 +16,31 @@ public class SkipSleepListener implements Listener {
 
     @EventHandler
     public void onEnterBed(PlayerBedEnterEvent event) {
-        if (event.isCancelled() || event.getBedEnterResult() != PlayerBedEnterEvent.BedEnterResult.OK) {
+        if (event.getBedEnterResult() != PlayerBedEnterEvent.BedEnterResult.OK) {
             return;
         }
 
         int sleeping = SLEEPING.incrementAndGet();
+        int needed = needed();
 
-        if (sleeping >= needed()) {
+        if (sleeping >= needed) {
             World world = event.getBed().getWorld();
-
             world.setTime(1000);
-            world.setThundering(false);
-            world.setStorm(false);
 
             broadcast("Night skipped!");
             return;
         }
 
-        broadcast("Sleeping (" + sleeping + "/" + needed() + ").");
+        broadcast("Sleeping (" + sleeping + "/" + needed + ").");
     }
 
     @EventHandler
     public void onLeaveBed(PlayerBedLeaveEvent event) {
-        long time = event.getBed().getWorld().getTime();
-        if (time < 12300 || time > 23850) {
-            return;
-        }
-
-        broadcast("Sleeping (" + SLEEPING.decrementAndGet() + "/" + needed() + ").");
+        broadcast("Sleeping (" +  SLEEPING.decrementAndGet() + "/" + needed() + ").");
     }
 
     private int needed() {
-        return (int) (0.5 * Bukkit.getOnlinePlayers().size());
+        return (int) Math.ceil(0.5 * Bukkit.getOnlinePlayers().size());
     }
 
     private void broadcast(String message) {
