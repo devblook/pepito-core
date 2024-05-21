@@ -10,9 +10,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
+import team.devblook.pepitocore.plugin.module.event.GameEventExecutor;
 import team.devblook.pepitocore.plugin.module.event.model.GameEvent;
 
 import java.time.Duration;
+import java.util.Map;
 
 public class OneHeartEvent implements GameEvent {
 
@@ -98,5 +103,31 @@ public class OneHeartEvent implements GameEvent {
                 attribute.setBaseValue(20);
             }
         }
+    }
+
+    @Override
+    public Map<Class<? extends Event>, GameEventExecutor<? extends Event>> events() {
+        return Map.of(
+                PlayerJoinEvent.class,
+                new GameEventExecutor<>(
+                        PlayerJoinEvent.class,
+                        event -> {
+                            AttributeInstance attribute = event.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH);
+                            if (attribute != null) {
+                                attribute.setBaseValue(2);
+                            }
+                        }
+                ),
+                PlayerQuitEvent.class,
+                new GameEventExecutor<>(
+                        PlayerQuitEvent.class,
+                        event -> {
+                            AttributeInstance attribute = event.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH);
+                            if (attribute != null) {
+                                attribute.setBaseValue(20);
+                            }
+                        }
+                )
+        );
     }
 }
