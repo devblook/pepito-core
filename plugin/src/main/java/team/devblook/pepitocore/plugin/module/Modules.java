@@ -7,6 +7,7 @@ import team.devblook.pepitocore.plugin.module.back.binding.GoBackBindingModule;
 import team.devblook.pepitocore.plugin.module.back.GoBackModule;
 import team.devblook.pepitocore.plugin.module.broadcast.BroadcastModule;
 import team.devblook.pepitocore.plugin.module.chat.ChatModule;
+import team.devblook.pepitocore.plugin.module.death.DeathModule;
 import team.devblook.pepitocore.plugin.module.event.EventModule;
 import team.devblook.pepitocore.plugin.module.indicator.IndicatorModule;
 import team.devblook.pepitocore.plugin.module.restart.RestartModule;
@@ -26,10 +27,12 @@ public interface Modules {
             "events", injector -> injector.getInstance(EventModule.class),
             "sleep", injector -> injector.getInstance(SleepModule.class),
             "broadcast", injector -> injector.getInstance(BroadcastModule.class),
-            "warps", injector -> injector.createChildInjector(new WarpBindingModule(injector.getInstance(Plugin.class))).getInstance(WarpsModule.class),
+            "warps", injector -> injector.createChildInjector(new WarpBindingModule(injector.getInstance(Plugin.class)))
+                    .getInstance(WarpsModule.class),
             "damage-indicator", injector -> injector.getInstance(IndicatorModule.class),
             "chat", injector -> injector.getInstance(ChatModule.class),
             "back", injector -> injector.createChildInjector(new GoBackBindingModule()).getInstance(GoBackModule.class),
-            "restart", injector -> injector.getInstance(RestartModule.class)
+            "restart", injector -> injector.getInstance(RestartModule.class),
+            "death", injector -> injector.getInstance(DeathModule.class)
     );
 }

@@ -31,6 +31,8 @@ dependencies {
 
     // https://mvnrepository.com/artifact/net.jodah/expiringmap
     implementation("net.jodah:expiringmap:0.5.11")
+
+    compileOnly("net.luckperms:api:5.4")
 }
 
 tasks {
