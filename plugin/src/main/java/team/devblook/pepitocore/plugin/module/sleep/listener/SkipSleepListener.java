@@ -36,7 +36,12 @@ public class SkipSleepListener implements Listener {
 
     @EventHandler
     public void onLeaveBed(PlayerBedLeaveEvent event) {
-        broadcast("Sleeping (" +  SLEEPING.decrementAndGet() + "/" + needed() + ").");
+        int sleeping = 0;
+        if (SLEEPING.get() > 0) { // imagine the module is enabled while someone is already sleeping
+            sleeping = SLEEPING.decrementAndGet();
+        }
+
+        broadcast("Sleeping (" + sleeping + "/" + needed() + ").");
     }
 
     private int needed() {
