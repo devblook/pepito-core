@@ -5,10 +5,12 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import team.devblook.pepitocore.plugin.module.tpa.model.TPARequest;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.UUID;
 
 @Singleton
@@ -34,6 +36,23 @@ public class TPARequestManager {
         );
         to.sendMessage(
                 Component.text("Tienes una solicitud de TPA pendiente de '" + from.getName() + "'.", TextColor.fromHexString("#35bd30"))
+        );
+    }
+
+    public void accept(Player receiver) {
+        TPARequest last = requests.get(receiver.getUniqueId())
+                .stream()
+                .min(Comparator.comparingLong(TPARequest::elapsed))
+                .orElse(null);
+
+        if (last == null) {
+            receiver.sendMessage("No se ha encontrado ninguna solicitud de TPA pendiente.");
+            return;
+        }
+
+        accept(
+                receiver,
+                Bukkit.getPlayer(last.from())
         );
     }
 

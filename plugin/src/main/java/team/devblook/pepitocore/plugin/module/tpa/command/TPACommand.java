@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.ArgOrSub;
 import me.fixeddev.commandflow.annotated.annotation.Command;
+import me.fixeddev.commandflow.annotated.annotation.OptArg;
 import me.fixeddev.commandflow.bukkit.annotation.Sender;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
@@ -56,17 +57,24 @@ public class TPACommand implements CommandClass {
     }
 
     @Command(names = "accept")
-    public void accept(@Sender Player player, OfflinePlayer target) {
+    public void accept(@Sender Player player, @OptArg OfflinePlayer target) {
+        if (target == null) {
+            requestManager.accept(player);
+            return;
+        }
+
         if (self(player, target)) {
             player.sendMessage(
                     Component.text("Emm, ¿Si no puedes solicitarte un TPA, por qué crees que esto es lógico?", TextColor.fromHexString("#E7783C"))
             );
             return;
         }
+
         Player from = online(target);
         if (from == null) {
             player.sendMessage(Component.text("El jugador" + target.getName() + " no está conectado.", TextColor.fromHexString("#E7783C")));
             return;
+
         }
 
         requestManager.accept(player, from);
