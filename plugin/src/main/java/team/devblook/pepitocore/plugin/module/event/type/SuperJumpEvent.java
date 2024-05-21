@@ -7,12 +7,17 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import team.devblook.pepitocore.plugin.module.event.GameEventExecutor;
 import team.devblook.pepitocore.plugin.module.event.model.GameEvent;
 
 import java.time.Duration;
+import java.util.Map;
 
 public class SuperJumpEvent implements GameEvent {
 
@@ -95,5 +100,22 @@ public class SuperJumpEvent implements GameEvent {
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.addPotionEffect(poison);
         }
+    }
+
+    @Override
+    public Map<Class<? extends Event>, GameEventExecutor<? extends Event>> events() {
+        return Map.of(
+                PlayerItemConsumeEvent.class,
+                new GameEventExecutor<>(
+                        PlayerItemConsumeEvent.class,
+                        event -> {
+                            if (event.getItem().getType() != Material.MILK_BUCKET) {
+                                return;
+                            }
+
+                            event.setCancelled(true);
+                        }
+                )
+        );
     }
 }
