@@ -11,6 +11,8 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import team.devblook.pepitocore.plugin.module.event.GameEventExecutor;
@@ -101,7 +103,14 @@ public class IncreasedMobDamageEvent implements GameEvent {
             player.addPotionEffect(slowness);
         }
 
-        Bukkit.getWorlds().get(0).setTime(14000);
+        Bukkit.getWorlds().get(0).setTime(13000);
+    }
+
+    @Override
+    public void end() {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            player.removePotionEffect(slowness.getType());
+        }
     }
 
     @Override
@@ -116,6 +125,26 @@ public class IncreasedMobDamageEvent implements GameEvent {
                             }
 
                             event.setDamage(event.getDamage() * 3);
+                        }
+                ),
+                PlayerJoinEvent.class,
+                new GameEventExecutor<>(
+                        PlayerJoinEvent.class,
+                        event -> {
+                            Player player = event.getPlayer();
+
+                            player.addPotionEffect(slowness);
+                            player.showBossBar(bossBar);
+                        }
+                ),
+                PlayerQuitEvent.class,
+                new GameEventExecutor<>(
+                        PlayerQuitEvent.class,
+                        event -> {
+                            Player player = event.getPlayer();
+
+                            player.removePotionEffect(slowness.getType());
+                            player.hideBossBar(bossBar);
                         }
                 )
         );

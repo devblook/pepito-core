@@ -112,7 +112,11 @@ public class OneHeartEvent implements GameEvent {
                 new GameEventExecutor<>(
                         PlayerJoinEvent.class,
                         event -> {
-                            AttributeInstance attribute = event.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH);
+                            Player player = event.getPlayer();
+
+                            player.showBossBar(bossBar);
+
+                            AttributeInstance attribute = player.getAttribute(Attribute.GENERIC_MAX_HEALTH);
                             if (attribute != null) {
                                 attribute.setBaseValue(2);
                             }
@@ -122,7 +126,11 @@ public class OneHeartEvent implements GameEvent {
                 new GameEventExecutor<>(
                         PlayerQuitEvent.class,
                         event -> {
-                            AttributeInstance attribute = event.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH);
+                            Player player = event.getPlayer();
+
+                            player.showBossBar(bossBar);
+
+                            AttributeInstance attribute = player.getAttribute(Attribute.GENERIC_MAX_HEALTH);
                             if (attribute != null) {
                                 attribute.setBaseValue(20);
                             }

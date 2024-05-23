@@ -10,6 +10,7 @@ import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import team.devblook.pepitocore.plugin.module.event.GameEventExecutor;
@@ -139,16 +140,25 @@ public class NoMoveGameEvent implements GameEvent {
                             });
                         }
                 ),
+                PlayerJoinEvent.class,
+                new GameEventExecutor<>(
+                        PlayerJoinEvent.class,
+                        event -> event.getPlayer().showBossBar(bossBar)
+                ),
                 PlayerQuitEvent.class,
                 new GameEventExecutor<>(
                         PlayerQuitEvent.class,
                         event -> {
+                            Player player = event.getPlayer();
+
+                            player.hideBossBar(bossBar);
+
                             if (gay != null) {
                                 return;
                             }
 
                             Bukkit.getBanList(BanListType.PROFILE).addBan(
-                                    event.getPlayer().getPlayerProfile(),
+                                    player.getPlayerProfile(),
                                     "Homosexual",
                                     Duration.of(1, ChronoUnit.HOURS),
                                     "Homosexual Judgement"

@@ -11,6 +11,8 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import team.devblook.pepitocore.plugin.module.event.GameEventExecutor;
@@ -103,6 +105,13 @@ public class SuperJumpEvent implements GameEvent {
     }
 
     @Override
+    public void end() {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            player.removePotionEffect(poison.getType());
+        }
+    }
+
+    @Override
     public Map<Class<? extends Event>, GameEventExecutor<? extends Event>> events() {
         return Map.of(
                 PlayerItemConsumeEvent.class,
@@ -114,6 +123,26 @@ public class SuperJumpEvent implements GameEvent {
                             }
 
                             event.setCancelled(true);
+                        }
+                ),
+                PlayerJoinEvent.class,
+                new GameEventExecutor<>(
+                        PlayerJoinEvent.class,
+                        event -> {
+                            Player player = event.getPlayer();
+
+                            player.addPotionEffect(poison);
+                            player.showBossBar(bossBar);
+                        }
+                ),
+                PlayerQuitEvent.class,
+                new GameEventExecutor<>(
+                        PlayerQuitEvent.class,
+                        event -> {
+                            Player player = event.getPlayer();
+
+                            player.removePotionEffect(poison.getType());
+                            player.hideBossBar(bossBar);
                         }
                 )
         );

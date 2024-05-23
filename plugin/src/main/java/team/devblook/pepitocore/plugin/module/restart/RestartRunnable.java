@@ -14,7 +14,5 @@ public class RestartRunnable implements Runnable {
         }
 
         Bukkit.getServer().shutdown();
-
-        System.out.println("restarting");
     }
 }

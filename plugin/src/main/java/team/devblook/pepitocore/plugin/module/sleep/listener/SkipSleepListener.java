@@ -25,7 +25,10 @@ public class SkipSleepListener implements Listener {
 
         if (sleeping >= needed) {
             World world = event.getBed().getWorld();
+
             world.setTime(1000);
+            world.setThundering(false);
+            world.setStorm(false);
 
             broadcast("Night skipped!");
             return;
@@ -39,6 +42,11 @@ public class SkipSleepListener implements Listener {
         int sleeping = 0;
         if (SLEEPING.get() > 0) { // imagine the module is enabled while someone is already sleeping
             sleeping = SLEEPING.decrementAndGet();
+        }
+
+        // checks if time is between 0-12000
+        if (event.getBed().getWorld().isDayTime()) {
+            return;
         }
 
         broadcast("Sleeping (" + sleeping + "/" + needed() + ").");

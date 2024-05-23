@@ -33,6 +33,7 @@ public class RestartCommand implements CommandClass {
             return;
         }
 
+        sender.sendMessage("Has programado un reinicio en " + time + " segundos.");
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.sendMessage("Se ha programado un reinicio del servidor en " + time + " segundos.");
         }
