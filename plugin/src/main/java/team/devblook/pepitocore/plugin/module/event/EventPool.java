@@ -25,7 +25,8 @@ public class EventPool implements Runnable {
             new NoMoveGameEvent(),
             new SuperJumpEvent(),
             new OneHeartEvent(),
-            new IncreasedMobDamageEvent()
+            new IncreasedMobDamageEvent(),
+            new AdventureEvent()
     );
 
     private @Inject Plugin plugin;
