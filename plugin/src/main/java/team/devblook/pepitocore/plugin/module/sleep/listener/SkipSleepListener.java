@@ -1,5 +1,7 @@
 package team.devblook.pepitocore.plugin.module.sleep.listener;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -30,11 +32,19 @@ public class SkipSleepListener implements Listener {
             world.setThundering(false);
             world.setStorm(false);
 
-            broadcast("Night skipped!");
+            broadcast(
+                    Component.text("¡Buenos días!", TextColor.fromHexString("#43ae33"))
+                            .appendNewline()
+                            .append(Component.text("La noche ha sido saltada.", TextColor.fromHexString("#E4FFE5")))
+            );
             return;
         }
-
-        broadcast("Sleeping (" + sleeping + "/" + needed + ").");
+        broadcast(
+                Component.text("Durmiendo: ", TextColor.fromHexString("#526aa9"))
+                        .append(Component.text(
+                                "(" + sleeping + "/" + needed + ")", TextColor.fromHexString("#E4FFE5")
+                        ))
+        );
     }
 
     @EventHandler
@@ -49,14 +59,19 @@ public class SkipSleepListener implements Listener {
             return;
         }
 
-        broadcast("Sleeping (" + sleeping + "/" + needed() + ").");
+        broadcast(
+                Component.text("Durmiendo: ", TextColor.fromHexString("#526aa9"))
+                        .append(Component.text(
+                                "(" + sleeping + "/" + needed() + ")", TextColor.fromHexString("#E4FFE5")
+                        ))
+        );
     }
 
     private int needed() {
         return (int) Math.ceil(0.5 * Bukkit.getOnlinePlayers().size());
     }
 
-    private void broadcast(String message) {
+    private void broadcast(final Component message) {
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.sendMessage(message);
         }
