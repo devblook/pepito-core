@@ -26,7 +26,8 @@ public class EventPool implements Runnable {
             new SuperJumpEvent(),
             new OneHeartEvent(),
             new IncreasedMobDamageEvent(),
-            new AdventureEvent()
+            new AdventureEvent(),
+            new Insomnia()
     );
 
     private @Inject Plugin plugin;
@@ -72,7 +73,7 @@ public class EventPool implements Runnable {
                         Bukkit.getPluginManager().registerEvent(
                                 entry.getKey(),
                                 current,
-                                EventPriority.NORMAL,
+                                current.priority(),
                                 entry.getValue(),
                                 plugin
                         );
@@ -95,9 +96,14 @@ public class EventPool implements Runnable {
                                     }
                                 }
 
+                                int interval = configuration.get().getInt("events.interval", 10);
+
+                                if (current.subtractDuration()) {
+                                    interval -= current.duration();
+                                }
+
                                 current = null;
 
-                                int interval = configuration.get().getInt("events.interval", 10);
                                 if (interval < 1) {
                                     run();
                                     return;

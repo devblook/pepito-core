@@ -22,6 +22,10 @@ public class SkipSleepListener implements Listener {
             return;
         }
 
+        if (event.isCancelled()) {
+            return;
+        }
+
         int sleeping = SLEEPING.incrementAndGet();
         int needed = needed();
 
