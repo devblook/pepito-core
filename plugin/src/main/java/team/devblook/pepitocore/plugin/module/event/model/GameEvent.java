@@ -44,4 +44,8 @@ public interface GameEvent extends Identity, Listener {
     default EventPriority priority() {
         return EventPriority.NORMAL;
     }
+
+    default boolean subtractDuration() {
+        return false;
+    }
 }

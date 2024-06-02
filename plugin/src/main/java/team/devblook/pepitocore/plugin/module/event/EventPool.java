@@ -95,9 +95,14 @@ public class EventPool implements Runnable {
                                     }
                                 }
 
+                                int interval = configuration.get().getInt("events.interval", 10);
+
+                                if (current.subtractDuration()) {
+                                    interval -= current.duration();
+                                }
+
                                 current = null;
 
-                                int interval = configuration.get().getInt("events.interval", 10);
                                 if (interval < 1) {
                                     run();
                                     return;
