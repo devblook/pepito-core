@@ -5,6 +5,7 @@ import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
 import org.bukkit.event.Event;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import team.devblook.pepitocore.api.Identity;
 import team.devblook.pepitocore.plugin.module.event.GameEventExecutor;
@@ -38,5 +39,9 @@ public interface GameEvent extends Identity, Listener {
 
     default Map<Class<? extends Event>, GameEventExecutor<? extends Event>> events() {
         return DEFAULT_EVENTS;
+    }
+
+    default EventPriority priority() {
+        return EventPriority.NORMAL;
     }
 }
