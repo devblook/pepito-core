@@ -72,7 +72,7 @@ public class EventPool implements Runnable {
                         Bukkit.getPluginManager().registerEvent(
                                 entry.getKey(),
                                 current,
-                                EventPriority.NORMAL,
+                                current.priority(),
                                 entry.getValue(),
                                 plugin
                         );
